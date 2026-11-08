@@ -1,0 +1,136 @@
+<Window x:Class="ArtCollection.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Колекція творів мистецтва | Варіант 19"
+        Width="1080" Height="780" MinWidth="920" MinHeight="670"
+        WindowStartupLocation="CenterScreen" Background="#F2F8F0" FontFamily="Segoe UI">
+    <Window.Resources>
+        <SolidColorBrush x:Key="Forest" Color="#286344"/>
+        <SolidColorBrush x:Key="DarkText" Color="#21392A"/>
+        <Style TargetType="GroupBox">
+            <Setter Property="Background" Value="#FFFFFF"/>
+            <Setter Property="BorderBrush" Value="#C7DEC8"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="14"/>
+            <Setter Property="Margin" Value="0,0,0,14"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="{StaticResource Forest}"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="#FAFDFA"/>
+            <Setter Property="Foreground" Value="{StaticResource DarkText}"/>
+            <Setter Property="BorderBrush" Value="#A6C9AC"/>
+            <Setter Property="Padding" Value="9,7"/>
+            <Setter Property="Margin" Value="0,4,0,10"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Background" Value="#FAFDFA"/>
+            <Setter Property="BorderBrush" Value="#A6C9AC"/>
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="Margin" Value="0,4,0,10"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource Forest}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="13,10"/>
+            <Setter Property="Margin" Value="0,6,8,0"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource DarkText}"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" Background="#DCEFE0" CornerRadius="15" Padding="22,18" Margin="0,0,0,16">
+            <StackPanel>
+                <TextBlock Text="КОЛЕКЦІЯ ТВОРІВ МИСТЕЦТВА" FontSize="25" FontWeight="Bold" Foreground="#205237"/>
+                <TextBlock Text="Лабораторна робота №3" Margin="0,5,0,0" Foreground="#50745A" FontSize="13"/>
+            </StackPanel>
+        </Border>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="420"/>
+                <ColumnDefinition Width="16"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <GroupBox Header="Додати твір мистецтва">
+                        <StackPanel>
+                            <TextBlock Text="Тип твору" FontWeight="Normal" FontSize="13"/>
+                            <ComboBox x:Name="TypeComboBox" SelectionChanged="TypeComboBox_SelectionChanged" SelectedIndex="0">
+                                <ComboBoxItem Content="Картина"/>
+                                <ComboBoxItem Content="Скульптура"/>
+                            </ComboBox>
+                            <TextBlock Text="Назва" FontWeight="Normal" FontSize="13"/>
+                            <TextBox x:Name="TitleTextBox" Text="Зоряна ніч"/>
+                            <TextBlock Text="Рік створення" FontWeight="Normal" FontSize="13"/>
+                            <TextBox x:Name="YearTextBox" Text="1889"/>
+                            <TextBlock Text="Автор" FontWeight="Normal" FontSize="13"/>
+                            <TextBox x:Name="AuthorTextBox" Text="Вінсент ван Гог"/>
+                            <TextBlock Text="Базова вартість (грн)" FontWeight="Normal" FontSize="13"/>
+                            <TextBox x:Name="BaseValueTextBox" Text="10000"/>
+                            <StackPanel x:Name="PaintingFields">
+                                <TextBlock Text="Техніка (Олія / Акварель / інша)" FontWeight="Normal" FontSize="13"/>
+                                <TextBox x:Name="TechniqueTextBox" Text="Олія"/>
+                                <TextBlock Text="Ширина полотна (см)" FontWeight="Normal" FontSize="13"/>
+                                <TextBox x:Name="WidthTextBox" Text="73.7"/>
+                                <TextBlock Text="Висота полотна (см)" FontWeight="Normal" FontSize="13"/>
+                                <TextBox x:Name="HeightTextBox" Text="92.1"/>
+                            </StackPanel>
+                            <StackPanel x:Name="SculptureFields" Visibility="Collapsed">
+                                <TextBlock Text="Матеріал (Бронза / Мармур / інший)" FontWeight="Normal" FontSize="13"/>
+                                <TextBox x:Name="MaterialTextBox" Text="Бронза"/>
+                            </StackPanel>
+                            <Button Content="+ Додати до колекції" Click="AddButton_Click" HorizontalAlignment="Left"/>
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+            </ScrollViewer>
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <GroupBox Grid.Row="0" Header="Твори у колекції">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <ListBox x:Name="ArtworkListBox" Grid.Row="0" Background="#FBFEFB" BorderBrush="#D6E6D8"
+                                 SelectionChanged="ArtworkListBox_SelectionChanged" FontSize="14" Padding="8"/>
+                        <TextBlock x:Name="SelectedInfoTextBlock" Grid.Row="1" Margin="4,12,4,7" TextWrapping="Wrap" FontSize="13"
+                                   Text="Оберіть твір, щоб переглянути його характеристики."/>
+                        <WrapPanel Grid.Row="2">
+                            <Button Content="Оцінити" Click="EvaluateButton_Click"/>
+                            <Button Content="Реставрувати" Click="RestoreButton_Click"/>
+                            <Button Content="Видалити" Background="#7A8D7B" Click="DeleteButton_Click"/>
+                        </WrapPanel>
+                    </Grid>
+                </GroupBox>
+                <GroupBox Grid.Row="1" Header="Загальний обрахунок">
+                    <StackPanel>
+                        <TextBlock Text="Вартість усіх творів, створених ДО 1900 року:" FontSize="14"/>
+                        <TextBlock x:Name="TotalValueTextBlock" Text="0,00 грн" FontSize="27" FontWeight="Bold" Foreground="#267345" Margin="0,9,0,5"/>
+                        <TextBlock Text="1900 рік не включається. Після реставрації вартість перераховується." FontSize="12" TextWrapping="Wrap" Foreground="#617B67"/>
+                    </StackPanel>
+                </GroupBox>
+            </Grid>
+        </Grid>
+        <Border Grid.Row="2" Background="#E4F1E5" CornerRadius="8" Padding="11" Margin="0,9,0,0">
+            <TextBlock x:Name="StatusTextBlock" Text="Додайте перший твір." FontSize="13"/>
+        </Border>
+    </Grid>
+</Window>
